@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <h:commandLink action="#{indexBean.toCreate()}" value="Создать"/>
+        <table> 
+       <thead> 
+            <th>#</th> 
+            <th>Название</th>  
+            <th>Дата написания</th> 
+            <th>Действия</th> 
+        </thead> 
+        <ui:repeat value="#{indexBean.list}" var="value">
+    <tr> 
+                        <td>${value.id}</td> 
+                    <td>${value.name}</td> 
+                    <td> ${value.createDate}</td> 
+                    <td><h:commandLink action="#{indexBean.toUpdate(id)}" value="Изменить">
+                            <f:param name="id" value="${value.id}"/>
+                        </h:commandLink>|<h:commandLink action="#{indexBean.deleteBean(value.id)}" value="Удалить"/></td>
+    </tr>
+        </ui:repeat>
+        </table>
+            
+            
+        Статистика:<br/>
+        за этот диалог:<br/>
+        создано:${sessionCounterBean.saveCount} удалено:${sessionCounterBean.deleteCount} изменено:${sessionCounterBean.updateCount}  <h:commandLink action="#{indexBean.endDialog()}" value="restart Conversation"/><br/>
+        за эту сессию:<br/>
+        создано:${sessionView.saveCount} удалено:${sessionView.deleteCount} изменено:${sessionView.updateCount}<br/>
+        за все время работы приложения:<br/>
+        удалено:${sessionView.deleted}
+        </h:form>
+    </h:body>
+</html>
+
